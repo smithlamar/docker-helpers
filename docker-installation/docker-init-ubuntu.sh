@@ -2,10 +2,11 @@
 set -e
 set -u
 
-GROUP_USER=$1 # The user to add to the docker group.
+GROUP_USER=$1 # The user to add to the docker group that can run docker commands without sudo.
 
 # First time setup of docker on ubuntu for development (tested on Windows 10 Hyper-V Ubuntu VM)
 # Commands mostly based on: https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04
+# and https://docs.docker.com/install/linux/linux-postinstall/
 
 # Update software package repositories
 sudo apt-get update -q -y
@@ -29,7 +30,7 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update -q -y
 
 # Install Latest Version of Docker
-sudo apt-get install docker-ce -q -y
+sudo apt-get install docker-ce docker-ce-cli containerd.io -q -y
 
 # Version sanity check
 docker --version
@@ -45,3 +46,8 @@ sudo usermod -aG docker "$GROUP_USER"
 newgrp docker
 
 docker run hello-world
+
+# install docker compose with bash completion by copying it from github and making it executable
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo curl -L https://raw.githubusercontent.com/docker/compose/1.25.4/contrib/completion/bash/docker-compose -o /etc/bash_completion.d/docker-compose
