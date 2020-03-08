@@ -1,9 +1,7 @@
 # kafka dev-mode
 
 ## Overview
-Uses a docker compose file and instructions borrowed almost entirely from https://dev.to/thegroo/one-to-run-them-all-1mg6 with a few small corrections
- and tweaks to start a single cluster
- zookeeper and
+Uses a docker compose file and instructions borrowed almost entirely from https://dev.to/thegroo/one-to-run-them-all-1mg6 with a few tweaks to start a single cluster zookeeper and
  kafka server. The docker compose file in use is the wurstmeister variation from the above mentioned article and has been copied and renamed
  
  This kafka setup may not allow non-existing topics to be created automatically when published to or consumed from. Instructions for creating
@@ -35,24 +33,26 @@ open a new shell and run:
 
 #### Test kafka by sending some messages
 
-Topics are pre-configured in the kafka image be created automatically but we'll create them anyway for this test.
+Topics may be pre-configured in the kafka image be created automatically but we'll create them anyway for this test.
 
-Alternatively, you can connect to the kafka container and remove the docker prefix from all commands by first running: `docker exec -it kafka /bin/bash`
 Use the kafka support scripts for things like creating topics and producing/consuming test messages.
 
-To create a topic named quick-test-topic with 1 initial partition that will not be replicated beyond the 1st broker, run: 
-`docker exec -it kafka kafka-topics --zookeeper zookeeper:2181 --create --topic quick-test-topic --partitions 1 --replication-factor 1`
+We will run them from the ubuntu host via docker in the examples, but you can connect to the kafka container and run them directly from there if you choose. To take this alternative approach, connect to the container by running: `docker exec -it kafka /bin/bash`
 
-To list topics, run: `docker exec -it kafka kafka-topics --zookeeper zookeeper:2181 --list`
+_Note: For the alternative approach, remove the `docker exec -it kafka` prefix from each commands_
+To create a topic named quick-test-topic with 1 initial partition that will not be replicated beyond the 1st broker, run: 
+`docker exec -it kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --topic quick-test-topic --partitions 1 --replication-factor 1`
+
+To list topics, run: `docker exec -it kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --list`
 
 To get details on a particular topic, replace the topic name with the desired topic in the following command:
-`docker exec -it kafka kafka-topics --describe --zookeeper zookeeper:2181 --topic quick-test-topic`
+`docker exec -it kafka /opt/kafka/bin/kafka-topics.sh --describe --bootstrap-server kafka:9092 --topic quick-test-topic`
 
 Start a consumer to receive our test message we will send on quick-test-topic
-`docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic quick-test-topic`
+`docker exec -it kafka /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic quick-test-topic`
 
 Start a producer we can use to send a test message by running:
-`docker exec -it kafka kafka-console-producer --broker-list localhost:9092 --topic client`
+`docker exec -it kafka /opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic client`
 
 #### Stopping and Cleanup 
 To stop the containers but keep any data and topics you've created run:
