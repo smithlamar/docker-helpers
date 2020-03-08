@@ -53,6 +53,11 @@ Start a consumer to receive our test message we will send on quick-test-topic
 Start a producer we can use to send a test message by running:
 `kafka-console-producer --broker-list kafka:9092 --topic client`
 
-#### Cleanup 
-To stop the containers and remove any data in the volumes run `docker-compose down -v`
+#### Stopping and Cleanup 
+To stop the containers but keep any data and topics you've created run:
+`docker-compose down`
 
+To remove any data in the volume e.g. your topics and messages add the "-v" argument:
+`docker-compose down -v`
+
+Bring things back up the same way we did at the start.
