@@ -40,6 +40,7 @@ Use the kafka support scripts for things like creating topics and producing/cons
 We will run them from the ubuntu host via docker in the examples, but you can connect to the kafka container and run them directly from there if you choose. To take this alternative approach, connect to the container by running: `docker exec -it kafka /bin/bash`
 
 _Note: For the alternative approach, remove the `docker exec -it kafka` prefix from each commands_
+
 To create a topic named quick-test-topic with 1 initial partition that will not be replicated beyond the 1st broker, run: 
 `docker exec -it kafka /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --topic quick-test-topic --partitions 1 --replication-factor 1`
 
