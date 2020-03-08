@@ -1,17 +1,18 @@
 # kafka dev-mode
 
 ## Overview
-Uses a docker compose file and instructions borrowed almost entirely from https://dev.to/thegroo/one-to-run-them-all-1mg6 with a few corrections
+Uses a docker compose file and instructions borrowed almost entirely from https://dev.to/thegroo/one-to-run-them-all-1mg6 with a few small corrections
  and tweaks to start a single cluster
  zookeeper and
- kafka server. The docker compose file in use is the confluent variation from the above mentioned article and has been copied and renamed
-  idiomatically to _docker-compose.yml_
+ kafka server. The docker compose file in use is the wurstmeister variation from the above mentioned article and has been copied and renamed
  
- This kafka setup will allow non-existing topics to be created automatically when published to or consumed from.
+ This kafka setup may not allow non-existing topics to be created automatically when published to or consumed from. Instructions for creating
+  topics are further below.
+  
  <br>
  <br>
- <br>
- ## Instructions
+ 
+## Instructions
  
 #### Start ZK and Kafka containers
 Navigate to the directory with the compose file and run:
@@ -48,10 +49,10 @@ To get details on a particular topic, replace the topic name with the desired to
 `docker exec -it kafka kafka-topics --describe --zookeeper zookeeper:2181 --topic quick-test-topic`
 
 Start a consumer to receive our test message we will send on quick-test-topic
-`docker exec -it kafka kafka-console-consumer --bootstrap-server kafka:9092 --topic quick-test-topic`
+`docker exec -it kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic quick-test-topic`
 
 Start a producer we can use to send a test message by running:
-`kafka-console-producer --broker-list kafka:9092 --topic client`
+`docker exec -it kafka kafka-console-producer --broker-list localhost:9092 --topic client`
 
 #### Stopping and Cleanup 
 To stop the containers but keep any data and topics you've created run:
