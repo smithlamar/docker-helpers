@@ -9,7 +9,7 @@ Not intended to be productionalized. Mostly every helper here is compiled/borrow
 
 ### Available helpers:
 
-1. Bootstrap a new Ubuntu install with Docker and Docker Compose. See: docker-helpers/docker-installation/README.md (on github: GITHUB_LINK_HERE)
+1. Bootstrap a new Ubuntu install with Docker and Docker Compose. See: docker-helpers/docker-installation/README.md (on github: https://github.com/smithlamar/docker-helpers/tree/develop/docker-installation)
 
-2. Run Kafka in developer mode via docker compose. See: docker-helpers/kafka/developer-mode/README.md (on github: GITHUB_LINK_HERE)
+2. Run Kafka in developer mode via docker compose. See: docker-helpers/kafka/developer-mode/README.md (on github: https://github.com/smithlamar/docker-helpers/tree/develop/kafka/developer-mode)
 
