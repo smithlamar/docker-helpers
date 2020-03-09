@@ -50,7 +50,7 @@ Start a consumer to receive our test message we will send on quick-test-topic:
 `docker exec -it kafka /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server kafka:9092 --topic quick-test-topic`
 
 Start a producer we can use to send a test message by running:  
-`docker exec -it kafka /opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic client`
+`docker exec -it kafka /opt/kafka/bin/kafka-console-producer.sh --broker-list kafka:9092 --topic quick-test-topic`
 
 #### Stopping and Cleanup 
 To stop the containers but keep any data and topics you've created run:  
