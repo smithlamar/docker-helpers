@@ -29,7 +29,7 @@ Monitor logs from the container with:
 
 #### Test kafka by sending some messages
 
-Topics may be pre-configured in the kafka image be created automatically but we'll create them anyway for this test.  
+Topics seem to be pre-configured in the kafka image be created automatically but we'll one ahead anyway for this test.  
 Use the kafka support scripts for things like creating topics and producing/consuming test messages.
 
 We will run them from the ubuntu host via docker in the examples, but you can connect to the kafka container and run them directly from there if you choose. To take this alternative approach, connect to the container by running:  
